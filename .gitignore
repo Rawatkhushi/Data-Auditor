@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[codz]
+*.py[cod]
 *$py.class
 
 # C extensions
@@ -216,3 +216,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+.DS_Store
+
+# Local runtime files
+*.sqlite3
+
+# Uvicorn / server logs
+*.out
+
+# Frontend dependencies (future-proofing)
+node_modules/
+
+# IDE settings
+.vscode/
+.idea/
