@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Data Quality Auditor</title>
+    <link rel="stylesheet" href="/ui/style.css" />
+  </head>
+  <body>
+    <div id="app" class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <h1 class="header-title">🔍 AI Data Quality Auditor</h1>
+          <p class="header-subtitle">
+            Upload a CSV and get a comprehensive data quality audit
+          </p>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Upload Section -->
+        <section id="upload-section" class="upload-section">
+          <div class="upload-card">
+            <input
+              type="file"
+              id="file-input"
+              accept=".csv"
+              style="position: absolute; left: -9999px"
+            />
+            <div id="upload-area" class="upload-area">
+              <div class="upload-icon">📤</div>
+              <h2>Choose a CSV file</h2>
+              <p id="upload-hint">Click to select or drag and drop</p>
+              <button id="select-btn" class="btn btn-primary">
+                Select File
+              </button>
+            </div>
+          </div>
+
+          <div id="file-info" class="file-info" style="display: none">
+            <p id="file-name" class="file-name"></p>
+            <button id="clear-file-btn" class="btn btn-secondary">
+              Choose Different File
+            </button>
+          </div>
+
+          <!-- Options -->
+          <div
+            id="options-section"
+            class="options-section"
+            style="display: none"
+          >
+            <label class="checkbox-label">
+              <input type="checkbox" id="generate-report-checkbox" />
+              Generate Detailed Report
+            </label>
+          </div>
+
+          <!-- Upload Button -->
+          <div id="action-buttons" class="action-buttons" style="display: none">
+            <button id="audit-btn" class="btn btn-success">Run Audit</button>
+          </div>
+
+          <!-- Loading State -->
+          <div id="loading-state" class="loading-state" style="display: none">
+            <div class="spinner"></div>
+            <p id="loading-text">Processing your data...</p>
+          </div>
+        </section>
+
+        <!-- Error State -->
+        <div id="error-alert" class="alert alert-error" style="display: none">
+          <span
+            class="alert-close"
+            onclick="
+              document.getElementById('error-alert').style.display = 'none'
+            "
+            >&times;</span
+          >
+          <strong>Error:</strong> <span id="error-message"></span>
+        </div>
+
+        <!-- Results Section (Hidden until audit completes) -->
+        <section
+          id="results-section"
+          class="results-section"
+          style="display: none"
+        >
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab-button active" data-tab="overview">
+              Overview
+            </button>
+            <button class="tab-button" data-tab="issues">Issues</button>
+            <button class="tab-button" data-tab="anomalies">Anomalies</button>
+            <button class="tab-button" data-tab="profile">Profile</button>
+            <button class="tab-button" data-tab="report">Audit Report</button>
+          </div>
+
+          <!-- Tab: Overview -->
+          <div id="overview-tab" class="tab-content active">
+            <div class="grid-2">
+              <!-- Score Card -->
+              <div class="card">
+                <h3 class="card-title">Quality Score</h3>
+                <div id="score-display" class="score-display">
+                  <div id="score-circle" class="score-circle"></div>
+                  <div id="score-details" class="score-details"></div>
+                </div>
+              </div>
+
+              <!-- Dimension Scores -->
+              <div class="card">
+                <h3 class="card-title">Dimension Breakdown</h3>
+                <div id="dimension-scores" class="dimension-scores"></div>
+              </div>
+            </div>
+
+            <!-- File Metadata -->
+            <div class="card">
+              <h3 class="card-title">Dataset Info</h3>
+              <div id="dataset-info" class="dataset-info"></div>
+            </div>
+
+            <!-- Issue Summary -->
+            <div class="card">
+              <h3 class="card-title">Issue Summary</h3>
+              <div id="issue-summary" class="issue-summary"></div>
+            </div>
+          </div>
+
+          <!-- Tab: Issues -->
+          <div id="issues-tab" class="tab-content">
+            <div class="card">
+              <h3 class="card-title">Detected Issues</h3>
+              <div id="issues-list" class="issues-list"></div>
+            </div>
+          </div>
+
+          <!-- Tab: Anomalies -->
+          <div id="anomalies-tab" class="tab-content">
+            <div class="card">
+              <h3 class="card-title">Statistical Anomalies</h3>
+              <div id="anomalies-list" class="anomalies-list"></div>
+            </div>
+          </div>
+
+          <!-- Tab: Profile -->
+          <div id="profile-tab" class="tab-content">
+            <div id="profile-columns" class="profile-columns"></div>
+          </div>
+
+          <!-- Tab: Audit Report -->
+          <div id="report-tab" class="tab-content">
+            <div class="card">
+              <h3 class="card-title">Audit Report</h3>
+              <div id="report-container" class="report-container">
+                <div id="report-content" class="report-content"></div>
+                <div
+                  id="report-loading"
+                  class="spinner"
+                  style="display: none"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/ui/app.js"></script>
+  </body>
+</html>
